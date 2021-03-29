@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">EazyTime</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_todo">待办</string>
+    <string name="title_attendance">打卡</string>
+    <string name="title_focus">专注</string>
+    <string name="title_analyse">统计</string>
+</resources>
