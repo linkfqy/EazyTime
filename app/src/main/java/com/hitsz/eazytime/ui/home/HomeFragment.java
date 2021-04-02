@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hitsz.eazytime.R;
 
 public class HomeFragment extends Fragment {
@@ -28,6 +29,16 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
+            }
+        });
+
+        FloatingActionButton fab = root.findViewById(R.id.testfab);
+        fab.setOnClickListener(new View.OnClickListener() { //
+            @Override
+            public void onClick(View view) {
+//                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                new MyDialog().show(getFragmentManager(), "dialog_fragment");
             }
         });
         return root;

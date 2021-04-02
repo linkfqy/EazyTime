@@ -5,11 +5,11 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_todo">
 
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_home"-->
-<!--        android:name="com.hitsz.eazytime.ui.home.HomeFragment"-->
-<!--        android:label="@string/title_home"-->
-<!--        tools:layout="@layout/fragment_home" />-->
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.hitsz.eazytime.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
 
 <!--    <fragment-->
 <!--        android:id="@+id/navigation_dashboard"-->
