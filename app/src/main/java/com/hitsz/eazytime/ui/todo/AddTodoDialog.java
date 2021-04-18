@@ -41,13 +41,6 @@ public class AddTodoDialog extends DialogFragment implements
         timeText.setOnClickListener(this);
 
         Button okButton = (Button)root.findViewById(R.id.ok_button);
-//        okButton.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v){
-//                Snackbar.make(v, "已添加待办", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         okButton.setOnClickListener(this);
         return root;
     }
@@ -107,6 +100,7 @@ public class AddTodoDialog extends DialogFragment implements
         if (v.getId()==R.id.ok_button) {
             Snackbar.make(v, "已添加待办", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
+//            TodoFragment.adapter.addItem(TodoFragment.adapter.getItemCount());
         }
     }
 }
