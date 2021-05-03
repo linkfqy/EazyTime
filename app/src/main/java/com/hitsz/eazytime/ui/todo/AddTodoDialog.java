@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -20,6 +21,9 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.hitsz.eazytime.R;
+import com.hitsz.eazytime.model.Todo;
+
+import java.util.Date;
 
 public class AddTodoDialog extends DialogFragment implements
         View.OnClickListener,
@@ -27,6 +31,8 @@ public class AddTodoDialog extends DialogFragment implements
         TimePickerDialog.OnTimeSetListener{
 
     TextView dateText,timeText;
+    EditText title;
+    Todo todo;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,10 +41,12 @@ public class AddTodoDialog extends DialogFragment implements
 
         dateText=(TextView) root.findViewById(R.id.dateText);
         timeText=(TextView) root.findViewById(R.id.timeText);
+        title=(EditText) root.findViewById(R.id.title_of_new_todo);
         dateText.setText("截止日期");
         timeText.setText("截止时间");
         dateText.setOnClickListener(this);
         timeText.setOnClickListener(this);
+        todo=new Todo();
 
         Button okButton = (Button)root.findViewById(R.id.ok_button);
         okButton.setOnClickListener(this);
@@ -70,12 +78,25 @@ public class AddTodoDialog extends DialogFragment implements
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         String desc=String.format("%d年%d月%d日",year,month+1,dayOfMonth);
+        Calendar cal=Calendar.getInstance();
+        cal.setTime(todo.getStartTime());
+        cal.set(year,month,dayOfMonth,
+                cal.get(Calendar.HOUR_OF_DAY),
+                cal.get(Calendar.MINUTE));
+        todo.setStartTime(cal);
         dateText.setText(desc);
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         String desc=String.format("%d时%d分",hourOfDay,minute);
+        Calendar cal=Calendar.getInstance();
+        cal.setTime(todo.getStartTime());
+        cal.set(cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH),
+                hourOfDay,minute);
+        todo.setStartTime(cal);
         timeText.setText(desc);
     }
 
@@ -98,9 +119,12 @@ public class AddTodoDialog extends DialogFragment implements
             dialog.show();
         }
         if (v.getId()==R.id.ok_button) {
-            Snackbar.make(v, "已添加待办", Snackbar.LENGTH_LONG)
+            todo.setTitle(title.getText().toString());
+            todo.save();
+            Snackbar.make(super.getParentFragment().getView(), "已添加待办", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
-//            TodoFragment.adapter.addItem(TodoFragment.adapter.getItemCount());
+            TodoFragment.adapter.refresh();
+            this.dismiss();
         }
     }
 }

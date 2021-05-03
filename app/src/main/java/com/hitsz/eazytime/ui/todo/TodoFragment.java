@@ -1,6 +1,7 @@
 package com.hitsz.eazytime.ui.todo;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.hitsz.eazytime.R;
+import com.hitsz.eazytime.model.Todo;
 import com.hitsz.eazytime.ui.todo.AddTodoDialog;
+
+import org.litepal.LitePal;
+import org.litepal.tablemanager.Connector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +33,7 @@ public class TodoFragment extends Fragment implements View.OnClickListener {
 
     private TodoViewModel todoViewModel;
 
-    private class VH extends RecyclerView.ViewHolder {
+    public class VH extends RecyclerView.ViewHolder {
         TextView tv;
         Button bt_delete;
 
@@ -39,14 +44,15 @@ public class TodoFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private class TodoItemAdapter extends RecyclerView.Adapter<VH> {//适配器
+    public class TodoItemAdapter extends RecyclerView.Adapter<VH> {//适配器
 
-        private List<Integer> dataList;
-        int maxId;
+        private List<Todo> dataList;
 
-        public TodoItemAdapter(List<Integer> dataList) {
+        public TodoItemAdapter(){
+            dataList=new ArrayList<>();
+        }
+        public TodoItemAdapter(List<Todo> dataList) {
             this.dataList = dataList;
-            maxId=dataList.size();
         }
 
         @NonNull
@@ -57,8 +63,8 @@ public class TodoFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void onBindViewHolder(@NonNull VH holder, int position) {
-            Integer x = dataList.get(position);
-            holder.tv.setText("第"+x.toString()+"个todo");
+            Todo x = dataList.get(position);
+            holder.tv.setText(x.getTitle());
 
             holder.bt_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -67,7 +73,9 @@ public class TodoFragment extends Fragment implements View.OnClickListener {
                         Snackbar.make(v, "connot delete this item", Snackbar.LENGTH_SHORT).show();
                     }
                     else{
-                        removeItem(position);
+                        //removeItem(position);
+                        LitePal.delete(Todo.class,x.getId());
+                        refresh();
                     }
                 }
             });
@@ -77,22 +85,14 @@ public class TodoFragment extends Fragment implements View.OnClickListener {
         public int getItemCount() {
             return dataList.size();
         }
-
-        public void addItem(int position){
-            maxId++;
-            dataList.add(position,maxId);
-            notifyItemInserted(position);
-        }
-
-        public void removeItem(int position) {
-            dataList.remove(position);
-            notifyItemRemoved(position);
+        public void refresh() {
+            dataList = LitePal.findAll(Todo.class);
             notifyDataSetChanged();
         }
     }
 
 
-    TodoItemAdapter adapter;
+    static TodoItemAdapter adapter;
     RecyclerView todoRV;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -100,16 +100,9 @@ public class TodoFragment extends Fragment implements View.OnClickListener {
         todoViewModel =
                 new ViewModelProvider(this).get(TodoViewModel.class);
         View root = inflater.inflate(R.layout.fragment_todo, container, false);
-//        显示系统自带的TextView
-//        final TextView textTodo = root.findViewById(R.id.text_todo);
-//        todoViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textTodo.setText(s);
-//            }
-//        });
 
         adapter = new TodoItemAdapter(new ArrayList<>());
+        adapter.refresh();
         todoRV = root.findViewById(R.id.todo_rv);
         todoRV.setAdapter(adapter);
         todoRV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
@@ -122,7 +115,6 @@ public class TodoFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.add_todo) {
-//            adapter.addItem(adapter.getItemCount());
             new AddTodoDialog().show(getFragmentManager(), "call from todo");
         }
     }
