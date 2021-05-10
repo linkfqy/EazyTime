@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.hitsz.eazytime.R;
+import com.hitsz.eazytime.model.FinishedTodo;
 import com.hitsz.eazytime.model.Todo;
 import com.hitsz.eazytime.ui.todo.AddTodoDialog;
 
@@ -29,6 +30,7 @@ import org.litepal.tablemanager.Connector;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class TodoFragment extends Fragment implements View.OnClickListener {
@@ -74,6 +76,8 @@ public class TodoFragment extends Fragment implements View.OnClickListener {
             holder.bt_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
+                    FinishedTodo ft=new FinishedTodo(x.getTitle(),new Date(),x.getPriority());
+                    ft.save();
                     LitePal.delete(Todo.class,x.getId());
                     refresh();
                 }
