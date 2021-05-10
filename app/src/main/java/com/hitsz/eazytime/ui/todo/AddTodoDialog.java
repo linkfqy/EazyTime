@@ -10,10 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,9 +26,11 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.hitsz.eazytime.R;
+import com.hitsz.eazytime.model.RemindTodo;
 import com.hitsz.eazytime.model.Todo;
 
 import java.util.Date;
+import java.util.List;
 
 public class AddTodoDialog extends DialogFragment implements
         View.OnClickListener,
@@ -31,24 +38,38 @@ public class AddTodoDialog extends DialogFragment implements
         TimePickerDialog.OnTimeSetListener{
 
     TextView dateText,timeText;
-    EditText title;
+    EditText title,customBefore;
+    Spinner priority;
+    CheckBox needRemind,noBefore,tenMinBefore,oneDayBefore;
     Todo todo;
+    LinearLayout ll;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.dialog_add_todo, container, false);
         //do sth
 
-        dateText=(TextView) root.findViewById(R.id.dateText);
-        timeText=(TextView) root.findViewById(R.id.timeText);
-        title=(EditText) root.findViewById(R.id.title_of_new_todo);
-        dateText.setText("截止日期");
-        timeText.setText("截止时间");
+        dateText= root.findViewById(R.id.dateText);
+        timeText= root.findViewById(R.id.timeText);
+        title= root.findViewById(R.id.todo_title);
+        priority= root.findViewById(R.id.todo_priority);
+        needRemind= root.findViewById(R.id.need_remind_cb);
+        noBefore= root.findViewById(R.id.no_before_cb);
+        tenMinBefore= root.findViewById(R.id.ten_min_before_cb);
+        oneDayBefore= root.findViewById(R.id.one_day_before_cb);
+        customBefore= root.findViewById(R.id.custom_before);
+        ll= root.findViewById(R.id.remind_setting);
+        ll.setVisibility(View.GONE);
         dateText.setOnClickListener(this);
         timeText.setOnClickListener(this);
+        needRemind.setOnClickListener(this);
+        noBefore.setOnClickListener(this);
+        tenMinBefore.setOnClickListener(this);
+        oneDayBefore.setOnClickListener(this);
+        customBefore.setOnClickListener(this);
         todo=new Todo();
 
-        Button okButton = (Button)root.findViewById(R.id.ok_button);
+        Button okButton = root.findViewById(R.id.ok_button);
         okButton.setOnClickListener(this);
         return root;
     }
@@ -71,7 +92,7 @@ public class AddTodoDialog extends DialogFragment implements
          */
         WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        getDialog().getWindow().setAttributes((WindowManager.LayoutParams) params);
+        getDialog().getWindow().setAttributes(params);
         super.onStart();
     }
 
@@ -118,8 +139,48 @@ public class AddTodoDialog extends DialogFragment implements
                     true);
             dialog.show();
         }
+        if (v.getId()==R.id.need_remind_cb){
+            if (needRemind.isChecked()){
+                ll.setVisibility(View.VISIBLE);
+                todo.setNeedRemind(true);
+            }else{
+                ll.setVisibility(View.GONE);
+                todo.setNeedRemind(false);
+            }
+        }
         if (v.getId()==R.id.ok_button) {
             todo.setTitle(title.getText().toString());
+            todo.setPriority(priority.getSelectedItemPosition());
+            if (needRemind.isChecked()){  //需要提醒
+                if (noBefore.isChecked()){
+                    Date dt=new Date();
+                    dt.setTime(todo.getStartTime().getTime());
+                    RemindTodo rt=new RemindTodo(todo,dt);
+                    rt.save();
+                    todo.addRemindTodo(rt);
+                }
+                if (tenMinBefore.isChecked()){
+                    Date dt=new Date();
+                    dt.setTime(todo.getStartTime().getTime()-600000);
+                    RemindTodo rt=new RemindTodo(todo,dt);
+                    rt.save();
+                    todo.addRemindTodo(rt);
+                }
+                if (oneDayBefore.isChecked()){
+                    Date dt=new Date();
+                    dt.setTime(todo.getStartTime().getTime()-86400000);
+                    RemindTodo rt=new RemindTodo(todo,dt);
+                    rt.save();
+                    todo.addRemindTodo(rt);
+                }
+                if (!customBefore.getText().toString().equals("")){  //自定义不为空
+                    Date dt=new Date();
+                    dt.setTime(todo.getStartTime().getTime()-Integer.parseInt(customBefore.getText().toString())*3600000);
+                    RemindTodo rt=new RemindTodo(todo,dt);
+                    rt.save();
+                    todo.addRemindTodo(rt);
+                }
+            }
             todo.save();
             Snackbar.make(super.getParentFragment().getView(), "已添加待办", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();

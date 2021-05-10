@@ -3,7 +3,12 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
-        android:id="@+id/todo_item_tv"
+        android:id="@+id/todo_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"/>
+    <TextView
+        android:id="@+id/todo_item_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="20dp"/>
@@ -11,5 +16,5 @@
         android:id="@+id/delete_todo_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/delete"/>
+        android:text="@string/finished"/>
 </LinearLayout>

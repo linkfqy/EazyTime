@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value="main" />
-    <version value="2" />
+    <version value="6" />
     <list>
         <mapping class="com.hitsz.eazytime.model.Todo" />
+        <mapping class="com.hitsz.eazytime.model.RemindTodo" />
     </list>
 </litepal>
