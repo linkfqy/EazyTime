@@ -20,13 +20,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.hitsz.eazytime.R;
+import com.hitsz.eazytime.model.FinishedTodo;
 import com.hitsz.eazytime.model.Todo;
 import com.hitsz.eazytime.ui.todo.AddTodoDialog;
 
 import org.litepal.LitePal;
 import org.litepal.tablemanager.Connector;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class TodoFragment extends Fragment implements View.OnClickListener {
@@ -34,12 +38,13 @@ public class TodoFragment extends Fragment implements View.OnClickListener {
     private TodoViewModel todoViewModel;
 
     public class VH extends RecyclerView.ViewHolder {
-        TextView tv;
+        TextView title,time;
         Button bt_delete;
 
         public VH(@NonNull View itemView) {
             super(itemView);
-            tv = itemView.findViewById(R.id.todo_item_tv);
+            title = itemView.findViewById(R.id.todo_item_title);
+            time = itemView.findViewById(R.id.todo_item_time);
             bt_delete = itemView.findViewById(R.id.delete_todo_item);
         }
     }
@@ -64,19 +69,17 @@ public class TodoFragment extends Fragment implements View.OnClickListener {
         @Override
         public void onBindViewHolder(@NonNull VH holder, int position) {
             Todo x = dataList.get(position);
-            holder.tv.setText(x.getTitle());
+            holder.title.setText(x.getTitle());
+            ;
+            holder.time.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(x.getStartTime()));
 
             holder.bt_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
-                    if (dataList.size()==1) {
-                        Snackbar.make(v, "connot delete this item", Snackbar.LENGTH_SHORT).show();
-                    }
-                    else{
-                        //removeItem(position);
-                        LitePal.delete(Todo.class,x.getId());
-                        refresh();
-                    }
+                    FinishedTodo ft=new FinishedTodo(x.getTitle(),new Date(),x.getPriority());
+                    ft.save();
+                    LitePal.delete(Todo.class,x.getId());
+                    refresh();
                 }
             });
         }
@@ -87,6 +90,7 @@ public class TodoFragment extends Fragment implements View.OnClickListener {
         }
         public void refresh() {
             dataList = LitePal.findAll(Todo.class);
+            dataList.sort(Comparator.naturalOrder());
             notifyDataSetChanged();
         }
     }
