@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hitsz.eazytime.R;
 import com.hitsz.eazytime.ui.attendance.AttendanceViewModel;
 
@@ -31,6 +32,7 @@ public class AttendanceFragment extends Fragment {
                 textView.setText(s);
             }
         });
+        FloatingActionButton fab = root.findViewById(R.id.add_attendance);
         return root;
     }
 }

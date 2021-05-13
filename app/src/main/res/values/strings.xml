@@ -8,9 +8,12 @@
     <string name="title_focus">专注</string>
     <string name="title_analyse">统计</string>
     <string name="touch_to_add_todo">点我添加待办</string>
+    <string name="touch_to_add_attendance">点我添加打卡</string>
     <string name="ok">确定</string>
     <string name="add_todo">添加待办</string>
+    <string name="add_attendance">添加打卡</string>
     <string name="todo_title">事项名称</string>
+    <string name="attendance_title">打卡内容</string>
     <string name="delete">删除</string>
     <string name="touch_to_set_date">点击设定日期</string>
     <string name="touch_to_set_time">点击设定时间</string>
