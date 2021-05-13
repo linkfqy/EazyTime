@@ -33,13 +33,6 @@ public class AttendanceFragment extends Fragment implements View.OnClickListener
             }
         });
         FloatingActionButton fab = root.findViewById(R.id.add_attendance);
-        fab.setOnClickListener(this);
         return root;
-    }
-    @Override
-    public void onClick(View view) {
-//                Snackbar.make(view, "搞个DialogFragment出来", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-        new AddAttendanceDialog().show(getFragmentManager(), "call from attendance");
     }
 }
