@@ -1,7 +1,7 @@
 <?xml version="1.1" encoding="utf-8"?>
 <litepal>
     <dbname value="main" />
-    <version value="7" />
+    <version value="8" />
     <list>
         <mapping class="com.hitsz.eazytime.model.Todo" />
         <mapping class="com.hitsz.eazytime.model.RemindTodo" />
