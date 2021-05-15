@@ -1,24 +1,26 @@
 package com.hitsz.eazytime.ui.todo;
 
-import android.app.AlertDialog;
+
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -58,6 +60,7 @@ public class AddTodoDialog extends DialogFragment implements
         tenMinBefore= root.findViewById(R.id.ten_min_before_cb);
         oneDayBefore= root.findViewById(R.id.one_day_before_cb);
         customBefore= root.findViewById(R.id.custom_before);
+        priority.setSelection(2);
         ll= root.findViewById(R.id.remind_setting);
         ll.setVisibility(View.GONE);
         dateText.setOnClickListener(this);
@@ -68,9 +71,12 @@ public class AddTodoDialog extends DialogFragment implements
         oneDayBefore.setOnClickListener(this);
         customBefore.setOnClickListener(this);
         todo=new Todo();
-
         Button okButton = root.findViewById(R.id.ok_button);
         okButton.setOnClickListener(this);
+
+        final Window window=getDialog().getWindow();
+        window.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        window.setLayout(-1,-2);
         return root;
     }
 
@@ -82,7 +88,6 @@ public class AddTodoDialog extends DialogFragment implements
         我们在这里可以重新设定view的各个数据，但是不能修改对话框最外层的ViewGroup的布局参数。
         因为这里的view还没添加到父级中，我们需要在下面onStart生命周期里修改对话框尺寸参数
          */
-
     }
 
     @Override
@@ -92,6 +97,7 @@ public class AddTodoDialog extends DialogFragment implements
          */
         WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.gravity= Gravity.BOTTOM;
         getDialog().getWindow().setAttributes(params);
         super.onStart();
     }

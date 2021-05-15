@@ -16,7 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hitsz.eazytime.R;
 import com.hitsz.eazytime.ui.attendance.AttendanceViewModel;
 
-public class AttendanceFragment extends Fragment implements View.OnClickListener{
+public class AttendanceFragment extends Fragment{
 
     private AttendanceViewModel attendanceViewModel;
 

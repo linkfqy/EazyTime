@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -119,7 +120,8 @@ public class TodoFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.add_todo) {
-            new AddTodoDialog().show(getFragmentManager(), "call from todo");
+            AddTodoDialog atd=new AddTodoDialog();
+            atd.show(getFragmentManager(), "call from todo");
         }
     }
 }
