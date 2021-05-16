@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -30,6 +32,7 @@ public class focusing extends AppCompatActivity implements View.OnClickListener 
     private TextView showtime;
     private Timer timer = null;
     private TimerTask task = null;
+    private  Date date;
     Focus focus;
 
     @Override
@@ -48,7 +51,6 @@ public class focusing extends AppCompatActivity implements View.OnClickListener 
         startfocus.setOnClickListener(this);
         stopfocus.setOnClickListener(this);
         continucefocus.setOnClickListener(this);
-        focus=new Focus();
     }
 
     @Override
@@ -96,8 +98,8 @@ public class focusing extends AppCompatActivity implements View.OnClickListener 
                     mHandler.sendMessage(message);
                 }
                 else{
-                    focus.setSuccess(true);
-                    focus.setFocustime(focusmin*60);
+                    date=new Date(System.currentTimeMillis());
+                    focus=new Focus(focusmin*60,true,date);
                     focus.save();
                 }
             }
@@ -106,8 +108,8 @@ public class focusing extends AppCompatActivity implements View.OnClickListener 
     }
 
     public void StopFocus(){
-        focus.setSuccess(false);
-        focus.setFocustime(focusmin*60-focustime);
+        date=new Date(System.currentTimeMillis());
+        focus=new Focus(focusmin*60-focustime,false,date);
         focus.save();
         focustime=0;
         t=0;

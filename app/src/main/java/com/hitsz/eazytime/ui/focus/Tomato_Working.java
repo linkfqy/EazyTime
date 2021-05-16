@@ -3,12 +3,15 @@ package com.hitsz.eazytime.ui.focus;
 import android.os.Handler;
 import android.os.Bundle;
 import android.os.Message;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -31,6 +34,7 @@ public class Tomato_Working extends AppCompatActivity implements View.OnClickLis
     private TextView showtime;
     private Timer timer = null;
     private TimerTask task = null;
+    private Date date;
     Focus focus;
 
     @Override
@@ -51,7 +55,6 @@ public class Tomato_Working extends AppCompatActivity implements View.OnClickLis
         startfocus.setOnClickListener(this);
         stopfocus.setOnClickListener(this);
         continucefocus.setOnClickListener(this);
-        focus=new Focus();
     }
 
     @Override
@@ -101,8 +104,8 @@ public class Tomato_Working extends AppCompatActivity implements View.OnClickLis
         }
         else {
             focusing=false;
-            focus.setFocustime(focusmin*focusnum2*60);
-            focus.setSuccess(true);
+            date=new Date(System.currentTimeMillis());
+            focus=new Focus(focusmin*focusnum2*60,true,date);
             focus.save();
         }
     }
@@ -128,13 +131,13 @@ public class Tomato_Working extends AppCompatActivity implements View.OnClickLis
 
     public void StopFocus(){
         if(focusing){
-            focus.setFocustime(focusmin*(focusnum2-focusnum)*60-time);
-            focus.setSuccess(false);
+            date=new Date(System.currentTimeMillis());
+            focus=new Focus(focusmin*(focusnum2-focusnum)*60-time,false,date);
             focus.save();
         }
         else{
-            focus.setFocustime(focusmin*(focusnum2-focusnum)*60);
-            focus.setSuccess(false);
+            date=new Date(System.currentTimeMillis());
+            focus=new Focus(focusmin*(focusnum2-focusnum)*60,false,date);
             focus.save();
         }
         time=0;
