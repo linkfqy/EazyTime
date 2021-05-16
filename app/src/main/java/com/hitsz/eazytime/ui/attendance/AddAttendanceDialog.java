@@ -47,8 +47,6 @@ public class AddAttendanceDialog extends DialogFragment implements
         remindinterval= root.findViewById(R.id.remind_interval);
         ll= root.findViewById(R.id.reminding);
         timeText.setOnClickListener(this);
-        remindperday.setOnClickListener(this);
-        remindperweek.setOnClickListener(this);
         attendance=new Attendance();
 
 
@@ -86,14 +84,16 @@ public class AddAttendanceDialog extends DialogFragment implements
         String desc=String.format("%d时%d分",hourOfDay,minute);
         Calendar cal=Calendar.getInstance();
         cal.setTime(attendance.getTime());
-        cal.set(hourOfDay,minute);
+        cal.set(cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH),
+                hourOfDay,minute);
         attendance.setTime(cal);
         timeText.setText(desc);
     }
 
     @Override
     public void onClick(View v) {
-
         if (v.getId()== R.id.remind_time){
             Calendar calendar=Calendar.getInstance();
             TimePickerDialog dialog=new TimePickerDialog(getContext(),this,
@@ -102,8 +102,6 @@ public class AddAttendanceDialog extends DialogFragment implements
                     true);
             dialog.show();
         }
-
-
         if (v.getId()== R.id.ok_button) {
             attendance.setTitle(title.getText().toString());
                 if (remindperday.isChecked()){
@@ -130,9 +128,8 @@ public class AddAttendanceDialog extends DialogFragment implements
             attendance.save();
             Snackbar.make(v, "已新建打卡", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
+            AttendanceFragment.adapter.refresh();
+            this.dismiss();
         }
-        AttendanceFragment.adapter.refresh();
-        this.dismiss();
     }
 }
-
