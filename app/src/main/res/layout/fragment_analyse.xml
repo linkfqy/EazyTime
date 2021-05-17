@@ -1,22 +1,332 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.analyse.AnalyseFragment">
 
-    <TextView
-        android:id="@+id/text_analyse"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="16dp"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardPreventCornerOverlap="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="累计专注"
+                    android:textStyle="bold"
+                    android:layout_margin="16dp"
+                    android:textColor="@color/analyse"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="次数"
+                        android:textColor="@color/analyse"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="时长(分)"
+                        android:textColor="@color/analyse"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="次均时长(分)"
+                        android:textColor="@color/analyse"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_1"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:textColor="@color/analyse"/>
+                    <TextView
+                        android:id="@+id/tv_2"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:textColor="@color/analyse"/>
+                    <TextView
+                        android:id="@+id/tv_3"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:textColor="@color/analyse"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="16dp"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardPreventCornerOverlap="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="当日专注"
+                    android:textStyle="bold"
+                    android:layout_margin="16dp"
+                    android:textColor="@color/analyse"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="总次数"
+                        android:textColor="@color/analyse"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="成功次数"
+                        android:textColor="@color/analyse"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="时长(分)"
+                        android:textColor="@color/analyse"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_4"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:textColor="@color/analyse"/>
+                    <TextView
+                        android:id="@+id/tv_5"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:textColor="@color/analyse"/>
+                    <TextView
+                        android:id="@+id/tv_6"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:textColor="@color/analyse"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="16dp"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardPreventCornerOverlap="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已完成事项"
+                    android:textStyle="bold"
+                    android:layout_margin="16dp"
+                    android:textColor="@color/analyse"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="当日"
+                        android:textColor="@color/analyse"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="本周"
+                        android:textColor="@color/analyse"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="本月"
+                        android:textColor="@color/analyse"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="累计"
+                        android:textColor="@color/analyse"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_7"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:textColor="@color/analyse"/>
+                    <TextView
+                        android:id="@+id/tv_8"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:textColor="@color/analyse"/>
+                    <TextView
+                        android:id="@+id/tv_9"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:textColor="@color/analyse"/>
+                    <TextView
+                        android:id="@+id/tv_10"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:textColor="@color/analyse"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart1"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="16dp"/>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart2"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginBottom="80dp"/>
+
+    </LinearLayout>
+
+</ScrollView>
