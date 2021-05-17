@@ -76,7 +76,7 @@ public class AddTodoDialog extends DialogFragment implements
 
         final Window window=getDialog().getWindow();
         window.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        window.setLayout(-1,-2);
+        window.setLayout(-1,-2);  //设置横向铺满屏幕
         return root;
     }
 

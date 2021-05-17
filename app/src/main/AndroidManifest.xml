@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.hitsz.eazytime">
+    android:versionCode="1"
+    android:versionName="1.0">
 
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19"/>
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
@@ -10,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EazyTime">
-        <activity android:name=".model.Focus"></activity>
+
+        <activity android:name=".model.Focus"
+            tools:ignore="Instantiatable"></activity>
         <activity android:name=".ui.focus.Tomato_Working">
             <intent-filter>
                 <action android:name="com.example.tomato.ACTION_START" />
@@ -25,15 +33,23 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            tools:ignore="DuplicateActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".AutoReceiver"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/attendance_item_title"
+        android:layout_width="29dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:padding="20dp" />
+    <TextView
+        android:id="@+id/attendance_item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:padding="20dp"/>
+    <TextView
+        android:id="@+id/attendance_item_interval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:padding="20dp"/>
+
+    <Button
+        android:id="@+id/delete_attendance_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/finished"/>
+</LinearLayout>
