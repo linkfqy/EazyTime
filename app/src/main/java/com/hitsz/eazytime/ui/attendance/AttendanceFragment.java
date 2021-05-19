@@ -14,6 +14,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.hitsz.eazytime.model.FinishAttendance;
+import com.hitsz.eazytime.model.FinishedTodo;
+import com.hitsz.eazytime.model.Todo;
 import com.hitsz.eazytime.ui.attendance.AttendanceViewModel;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -40,14 +44,15 @@ public class AttendanceFragment extends Fragment implements View.OnClickListener
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             TextView title, time ,interval;
-            Button bt_delete;
+            Button atover,atfinish;
 
             public ViewHolder(View view) {
                 super(view);
                 title = view.findViewById(R.id.attendance_item_title);
                 time = view.findViewById(R.id.attendance_item_time);
                 interval = view.findViewById(R.id.attendance_item_interval);
-                bt_delete = view.findViewById(R.id.delete_attendance_item);
+                atover = view.findViewById(R.id.over_attendance_item);
+                atfinish = view.findViewById(R.id.finish_attendance_item);
             }
         }
         public AttendanceAdapter() {
@@ -72,12 +77,21 @@ public class AttendanceFragment extends Fragment implements View.OnClickListener
 
             holder.time.setText(new SimpleDateFormat("HH:mm:ss").format(y.getTime()));
 
-            holder.interval.setText(y.getRemindinterval());
+            String s = "" + y.getRemindinterval();
+            holder.interval.setText(s);
 
-            holder.bt_delete.setOnClickListener(new View.OnClickListener() {
+            holder.atover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    LitePal.delete(Attendance.class, y.getId());
+                    FinishAttendance fa=new FinishAttendance(y.getTitle(),new Date());
+                    fa.save();
+                }
+            });
+
+            holder.atfinish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v){
+                    LitePal.delete(Attendance.class,y.getId());
                     refresh();
                 }
             });

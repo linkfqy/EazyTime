@@ -6,8 +6,8 @@
     android:versionName="1.0">
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="19"/>
+        android:minSdkVersion="24"
+        android:targetSdkVersion="30"/>
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"

@@ -5,27 +5,38 @@
 
     <TextView
         android:id="@+id/attendance_item_title"
-        android:layout_width="29dp"
+        android:layout_width="92dp"
         android:layout_height="wrap_content"
         android:layout_weight="5"
         android:padding="20dp" />
+
     <TextView
         android:id="@+id/attendance_item_time"
-        android:layout_width="wrap_content"
+        android:layout_width="98dp"
         android:layout_height="wrap_content"
         android:layout_weight="5"
-        android:padding="20dp"/>
+        android:padding="20dp" />
+
     <TextView
         android:id="@+id/attendance_item_interval"
-        android:layout_width="wrap_content"
+        android:layout_width="52dp"
         android:layout_height="wrap_content"
         android:layout_weight="5"
-        android:padding="20dp"/>
+        android:padding="20dp" />
 
     <Button
-        android:id="@+id/delete_attendance_item"
+        android:id="@+id/over_attendance_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/finished"/>
+        android:background="@drawable/button_selector"
+        android:text="@string/over" />
+
+    <Button
+        android:id="@+id/finish_attendance_item"
+        android:layout_width="63dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/button_selector"
+        android:text="@string/finish" />
 </LinearLayout>

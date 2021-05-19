@@ -107,6 +107,7 @@ public class AddAttendanceDialog extends DialogFragment implements
                 if (remindperday.isChecked()){
                     Date dt=new Date();
                     dt.setTime(attendance.getTime().getTime());
+                    attendance.setRemindinterval(1);
                     RemindAttendance rt=new RemindAttendance(attendance,dt);
                     rt.save();
                     attendance.addRemindAttendance(rt);
@@ -114,6 +115,7 @@ public class AddAttendanceDialog extends DialogFragment implements
                 if (remindperweek.isChecked()){
                     Date dt=new Date();
                     dt.setTime(attendance.getTime().getTime());
+                    attendance.setRemindinterval(7);
                     RemindAttendance rt=new RemindAttendance(attendance,dt);
                     rt.save();
                     attendance.addRemindAttendance(rt);
@@ -121,6 +123,9 @@ public class AddAttendanceDialog extends DialogFragment implements
                 if (!remindinterval.getText().toString().equals("")){  //自定义不为空
                     Date dt=new Date();
                     dt.setTime(attendance.getTime().getTime()-Integer.parseInt(remindinterval.getText().toString()));
+                    String value= remindinterval.getText().toString();
+                    int finalValue=Integer.parseInt(value);
+                    attendance.setRemindinterval(finalValue);
                     RemindAttendance rt=new RemindAttendance(attendance,dt);
                     rt.save();
                     attendance.addRemindAttendance(rt);

@@ -31,4 +31,8 @@
     <string name="remind">提醒</string>>
     <string name="day">天</string>>
     <string name="per">每</string>>
+    <string name="over">我要打卡</string>>
+    <string name="finish">结束</string>
+    <drawable name="button_nopress">#BC6201FF</drawable>
+    <drawable name="button_pressed">#A40000</drawable>
 </resources>

@@ -12,13 +12,13 @@ public class Attendance extends LitePalSupport {
     private int id;
     private String title;
     private Date Time;
-    private String Remindinterval;
+    private int Remindinterval;
     private List<RemindAttendance> remindAttendanceList;
 
     public Attendance(){
         this.title=null;
         this.Time=new Date();
-        this.Remindinterval=null;
+        this.Remindinterval=1;
         this.remindAttendanceList=new ArrayList<>();
     }
 
@@ -46,9 +46,9 @@ public class Attendance extends LitePalSupport {
         this.Time = cal.getTime();
     }
 
-    public String getRemindinterval() { return  Remindinterval;}
+    public int getRemindinterval() { return  Remindinterval;}
 
-    public void setRemindinterval(String Remindinterval) { this.Remindinterval=Remindinterval;}
+    public void setRemindinterval(int Remindinterval) { this.Remindinterval=Remindinterval;}
 
     public List<RemindAttendance> getRemindAttendanceList() {
         return remindAttendanceList;
