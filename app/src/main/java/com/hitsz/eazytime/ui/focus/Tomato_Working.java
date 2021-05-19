@@ -1,30 +1,25 @@
 package com.hitsz.eazytime.ui.focus;
 
-import android.os.Handler;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
-import android.provider.ContactsContract;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
-
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.hitsz.eazytime.R;
 import com.hitsz.eazytime.model.Focus;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Tomato_Working extends AppCompatActivity implements View.OnClickListener {
     private int time=0,  focusmin,relaxmin,focusnum=0,focusnum2,t=0;
@@ -157,7 +152,28 @@ public class Tomato_Working extends AppCompatActivity implements View.OnClickLis
             t=1;
             StartFocus();
         }
-
+    }
+    public boolean IsFocusing(){
+        ActivityManager activityManager=(ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        String packageName=getApplicationContext().getPackageName();//获取所有正在运行的app
+        List<ActivityManager.RunningAppProcessInfo> appProcesses=activityManager.getRunningAppProcesses();
+        if(appProcesses==null)return false;
+        for(ActivityManager.RunningAppProcessInfo appProcess : appProcesses){
+            if(appProcess.processName.equals(packageName) && appProcess.importance==ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND){
+                return true;
+            }
+        }
+        return false;
     }
 
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        if(focusing)
+            if(!IsFocusing()){
+                Toast.makeText(getApplicationContext(),"专注失败",Toast.LENGTH_LONG).show();
+                StopFocus();
+            }
+    }
 }
