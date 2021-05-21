@@ -1,7 +1,6 @@
 package com.hitsz.eazytime.ui.analyse;
 
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,13 +9,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -25,22 +21,21 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.hitsz.eazytime.R;
+import com.hitsz.eazytime.model.Attendance;
+import com.hitsz.eazytime.model.FinishAttendance;
 import com.hitsz.eazytime.model.FinishedTodo;
 import com.hitsz.eazytime.model.Focus;
-import com.hitsz.eazytime.utils.DateUtils;
 
 import org.litepal.LitePal;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class AnalyseFragment extends Fragment {
 
     private AnalyseViewModel analyseViewModel;
 
-    private TextView tv1,tv2,tv3,tv4,tv5,tv6,tv7,tv8,tv9,tv10;
+    private TextView tv1,tv2,tv3,tv4,tv5,tv6,tv7,tv8,tv9,tv10,tv11,tv12,tv13,tv14;
 
     private LineChart lc1, lc2;
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -59,6 +54,11 @@ public class AnalyseFragment extends Fragment {
         tv8 = root.findViewById(R.id.tv_8);
         tv9 = root.findViewById(R.id.tv_9);
         tv10 = root.findViewById(R.id.tv_10);
+        tv11 = root.findViewById(R.id.tv_11);
+        tv12 = root.findViewById(R.id.tv_12);
+        tv13 = root.findViewById(R.id.tv_13);
+        tv14 = root.findViewById(R.id.tv_14);
+
         lc1 = root.findViewById(R.id.lineChart1);
         lc2 = root.findViewById(R.id.lineChart2);
 
@@ -85,6 +85,18 @@ public class AnalyseFragment extends Fragment {
 
         List<FinishedTodo> list6 = LitePal.findAll(FinishedTodo.class);
         tv10.setText(list6.size()+"件");
+
+        List<FinishAttendance> list7 = LitePal.where("Time > ?", DateUtils.getTodayTime()+"").find(FinishAttendance.class);
+        tv11.setText(list7.size()+"件");
+
+        List<FinishAttendance> list8 = LitePal.where("Time > ?", DateUtils.getWeeklyTime()+"").find(FinishAttendance.class);
+        tv12.setText(list8.size()+"件");
+
+        List<FinishAttendance> list9 = LitePal.where("Time > ?", DateUtils.getMonthTime()+"").find(FinishAttendance.class);
+        tv13.setText(list9.size()+"件");
+
+        List<FinishAttendance> list10 = LitePal.findAll(FinishAttendance.class);
+        tv14.setText(list10.size()+"件");
 
         initLineChart(lc1,getMonthData(),"月度专注时长");
         initLineChart(lc2,getYearData(),"年度专注时长");
