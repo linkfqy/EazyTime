@@ -16,7 +16,8 @@
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="00"/>
+            android:hint="00"
+            android:inputType="number"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
